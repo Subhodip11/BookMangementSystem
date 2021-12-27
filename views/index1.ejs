@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Published Book Manager</title>
+    <script src="https://kit.fontawesome.com/cccf8ae8e0.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    .entryBookForm {
+        width: 60%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 2rem auto;
+        /* border: 1px solid black; */
+        background-color: rgba(167, 167, 13, 0.8);
+    }
+    
+    .bookname,
+    .bookprice,
+    .username,
+    .issuedate {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 80%;
+        /* border: 1px solid black; */
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        background-color: #9b7600;
+        transition: 0.2s ease-in-out;
+    }
+    
+    .bookname input,
+    .bookprice input,
+    .username input,
+    .issuedate input {
+        padding: 0.5rem;
+        outline: none;
+        width: 70%;
+        margin: 0 1rem;
+        background-color: #ffe180;
+        border: none;
+    }
+    
+    .bookname:hover,
+    .bookprice:hover,
+    .username:hover,
+    .issuedate:hover {
+        transform: scale(1.02, 1.02);
+        box-shadow: 5px 7px 6px rgb(63, 63, 63);
+    }
+    
+    .addBookBtn {
+        font-size: 16px;
+        padding: 0.6rem 0.8rem;
+        background-color: rgb(46, 46, 255);
+        color: white;
+        outline: none;
+        border: none;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+    }
+    
+    .addBookBtn:hover {
+        transform: scale(1.1, 1.1);
+    }
+    
+    .addBookBtn:active {
+        background-color: rgba(46, 46, 255, 0.8);
+    }
+    
+    .tableContainer {
+        width: 100%;
+        height: 60%;
+        border: 1px solid black;
+        margin: 1rem 0;
+    }
+    
+    .tableContainer table {
+        /* background-color: darkseagreen; */
+        margin: 0 auto;
+        /* border: 1px solid gray; */
+        border-collapse: unset;
+        color: white;
+        border-collapse: collapse;
+    }
+    
+    .tableContainer table th,
+    .tableContainer table tr td {
+        padding: 1rem;
+        text-align: center;
+        border-top: 1px solid #091f17;
+        border-bottom: 1px solid #091f17;
+    }
+    
+    .tableContainer table tr {
+        transition: 0.2s ease-in;
+    }
+    
+    .tableContainer table thead th {
+        background-color: rgb(86, 73, 165);
+    }
+    
+    .tableContainer table tbody tr:nth-child(2n+1) {
+        background-color: #2f9c77;
+    }
+    
+    .tableContainer table tbody tr:nth-child(2n) {
+        background-color: darkseagreen;
+    }
+    
+    .tableContainer table tbody tr:hover {
+        background-color: black;
+        color: whitesmoke;
+        box-shadow: 5px 5px 10px gray;
+        transform: scale( 1.02, 1.1);
+        border: 2px solid white;
+    }
+    
+    .fa-trash-alt {
+        cursor: pointer;
+        color: rgb(211, 5, 5);
+    }
+    
+    .fa-trash-alt:hover {
+        transform: scale(1.2, 1.2);
+        color: white;
+    }
+    
+    .deleteBtn {
+        outline: none;
+        border: none;
+        background: transparent;
+    }
+    
+    @media screen and (max-width:800px) {
+        .entryBookForm {
+            width: 80%;
+            justify-content: space-between;
+            padding: 0;
+        }
+        .bookname input,
+        .bookprice input,
+        .username input,
+        .issuedate input {
+            width: 70%;
+            padding: 0.2rem;
+            margin: 0.1rem;
+        }
+        .bookname,
+        .bookprice,
+        .username,
+        .issuedate {
+            font-size: 14px;
+        }
+        .tableContainer {
+            width: 95vw;
+            margin: 0 auto;
+            overflow: scroll;
+        }
+        .tableContainer table {
+            font-size: 14px;
+        }
+    }
+    
+    .backgroundImage {
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background-position: center center;
+        height: 100vh;
+        width: 100vw;
+        opacity: 0.9;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <img class="backgroundImage" src="images/henry-be-lc7xcWebECc-unsplash.jpg" alt="">
+        <form action="/bookAdded" class="entryBookForm" method="post" enctype="application/x-www-form-urlencoded">
+            <div class="username">
+                <label for="username">Enter Author Name</label>
+                <input id="username" name="authorname" type="text" placeholder="Enter user name" />
+            </div>
+            <div class="bookname">
+                <label for="bookname">Enter Book Name</label>
+                <input id="bookname" name="bookname" type="text" placeholder="Enter book name" />
+            </div>
+            <div class="bookprice">
+                <label for="bookprice">Price of Book</label>
+                <input id="bookprice" name="bookprice" type="text" placeholder="Enter price of book" />
+            </div>
+            <div class="issuedate">
+                <label for="issuedate">Book Publish Date</label>
+                <input id="issuedate" name="issuedate" type="text" placeholder="Enter book issue date" />
+            </div>
+            <button type="submit" class="addBookBtn">Add book</button>
+        </form>
+        <div class="tableContainer">
+
+            <table>
+                <thead>
+                    <th>Sl. no.</th>
+                    <th>Name of Author</th>
+                    <th>Name of book</th>
+                    <th>Price of book</th>
+                    <th>Publish date</th>
+                    <th>Drop Book</th>
+                </thead>
+                <tbody id="body_data">
+                    <% data.forEach(ele=>{ %>
+
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                <%= ele.authorName -%>
+                            </td>
+                            <td>
+                                <%= ele.bookName -%>
+                            </td>
+                            <td>
+                                <%= ele.bookPrice -%>
+                            </td>
+                            <td>
+                                <%= ele.publishDate -%>
+                            </td>
+                            <td>
+                                <form action="/deleteBook/:<%= ele.id -%>" method="post" enctype="application/x-www-form-urlencoded"><button type="submit" class="deleteBtn"><i class="fas fa-trash-alt"></i></button></form>
+                            </td>
+                        </tr>
+                        <%  }) %>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+<script>
+    let cnt = 1
+    let tableData = document.getElementsByTagName('td');
+    for (let i = 0; i < tableData.length; i += 6) {
+        tableData[i].innerText = cnt;
+        cnt++;
+    }
+</script>
+
+</html>

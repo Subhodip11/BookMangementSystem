@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regestration</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .parent-container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .container {
+        /* position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); */
+        border: 1px solid black;
+        display: flex;
+        /* align-items: center; */
+        padding: 1rem;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 2;
+    }
+    
+    .registerForm,
+    .loginForm {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        justify-content: flex-start;
+        align-items: flex-start;
+        color: white;
+        height: 100%;
+        box-shadow: 0 0 15px black;
+    }
+    
+    .registerForm {
+        border-right: 2px solid white;
+    }
+    
+    .registerForm input,
+    .loginForm input {
+        border: none;
+        border-bottom: 1px solid white;
+        padding: 0.5rem 0.8rem;
+        width: 18rem;
+        margin: 0.4rem 0;
+        background: transparent;
+        transition: 0.2s ease-in;
+        color: white;
+    }
+    
+    .registerForm input:hover,
+    .loginForm input:hover {
+        transform: skewX(-5deg);
+        transform: scale(1.03, 1.03);
+    }
+    
+    .registerForm button,
+    .loginForm button {
+        padding: 0.6rem 1.6rem;
+        background: transparent;
+        color: white;
+        word-spacing: 4px;
+        border: 1px solid white;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+    }
+    
+    .registerForm button:hover,
+    .loginForm button:hover {
+        color: black;
+        background-color: white;
+        border: 1px solid black;
+    }
+    
+    .heading {
+        align-self: flex-start;
+        /* font-weight: bold; */
+        font-size: 1.5rem;
+    }
+    
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-position: center center;
+        background-size: cover;
+        opacity: 1;
+        z-index: 1;
+    }
+    
+    .title {
+        /* border: 1px solid white; */
+        text-align: center;
+        margin: 0 auto;
+        padding-bottom: 1.5rem;
+        color: white;
+        font-size: 2rem;
+        font-variant: small-caps;
+        z-index: 2;
+    }
+</style>
+
+<body>
+    <img src="images/peter-herrmann-yqUBn_eMrYc-unsplash.jpg" alt="">
+    <div class="parent-container">
+        <div class="title">
+            Regsitration Form
+        </div>
+
+        <div class="container">
+            <form class="registerForm" action="/register_or_login/registeredSuccessfully" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="heading">
+                    Sign Up
+                </div>
+                <input type="text" name="userName" placeholder="Enter user name" required autocomplete="username">
+                <input type="password" name="password" id="password1" placeholder="Enter password" required autocomplete="new-password">
+                <input type="password" name="confirmPassword" id="password2" placeholder="Confirm password" required autocomplete="new-password">
+                <input type="number" name="registrationNumber" placeholder="Enter your registration number" required>
+                <input type="tel" name="mobileNumber" placeholder="Enter your mobile number" required>
+                <input type="email" name="email" placeholder="Enter your email id" required>
+                <button type="submit">Submit your details</button>
+            </form>
+
+            <form class="loginForm" action="/register_or_login/loginSuccess" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="heading">
+                    Sign In
+                </div>
+                <input type="text" name="userNameLogin" placeholder="Enter user name" required>
+                <input type="number" name="registrationNumberLogin" placeholder="Enter registration number" required>
+                <input type="password" name="passwordLogin" id="password1" placeholder="Enter password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

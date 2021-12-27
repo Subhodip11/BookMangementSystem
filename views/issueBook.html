@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .container {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1;
+    }
+    
+    #issueBookDetails {
+        color: white;
+        background: linear-gradient(to right, rgb(10, 10, 10), rgb(20, 20, 20), rgb(30, 30, 30), rgb(50, 50, 50));
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* display: none; */
+        border-radius: 0.7rem;
+        z-index: 2;
+        /* border: 1px solid black; */
+        box-shadow: 8px 12px 20px rgb(54, 54, 54);
+        padding: 2rem;
+    }
+    
+    #issueBookDetails div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.3rem;
+    }
+    
+    #issueBookDetails div p {
+        margin: 0 0.4rem;
+    }
+    
+    #closeBtn {
+        color: red;
+        cursor: pointer;
+    }
+    
+    #closeBtn:active {
+        color: rgba(red, red, red, 0.8);
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>This is Body text</h1>
+    </div>
+    <div id="issueBookDetails">
+        <div id="bookName1">Book Name
+            <p>Harry porter</p>
+        </div>
+        <div id="username">User name
+            <p>Subhodip Chatterjee</p>
+        </div>
+        <div id="daysissued">Days Issued
+            <p>7 Days</p>
+        </div>
+        <div id="pricetobepaid">Price to be paid(if any)
+            <p>450</p>
+        </div>
+        <div id="regno">Regestration Number
+            <p>1941012209</p>
+        </div>
+        <div id="issueddate">Issue date
+            <p>8/12/2021</p>
+        </div>
+        <div id="closeBtn">X</div>
+    </div>
+</body>
+
+</html>
