@@ -51,37 +51,7 @@ app.get('/issueBook/:userName/:registrationNumber', async(req, res) => {
     }
 
 })
-app.post('/removeIssuedBook/:userName/:registrationNumber', async(req, res) => {
-    let userdata = {
-        userName: req.params.userName.substring(1, ),
-        registrationNumber: req.params.registrationNumber.substring(1, )
-    };
-    let { bookName, authorName, bookPrice } = req.body;
-    let findBookExistence = await bookIssuedModel.find({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber })
 
-    let tempArr = []
-
-    let flag = false;
-    if (findBookExistence.length !== 0) {
-        for (let i = 0; i < findBookExistence.length; i++) {
-            if (findBookExistence[i].nameOfIssuer === userdata.userName && findBookExistence[i].regNoOfUser === userdata.registrationNumber) {
-                tempArr.push(findBookExistence[i].bookObjInfo);
-            }
-        }
-        tempArr = JSON.parse(tempArr)
-        let resArr = []
-        for (let i = 0; i < tempArr.length; i++) {
-            if (!tempArr[i].bookname.includes(bookName) || !tempArr[i].bookauthor.includes(authorName) || !tempArr[i].bookprice.includes(bookPrice)) {
-                resArr.push(tempArr[i]);
-            }
-        }
-        bookIssuedModel.findOneAndUpdate({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber }, { $set: { bookObjInfo: JSON.stringify(resArr) } }, function(err, data) {
-            if (err) return res.json({ 'errorMessage': 'Some error occured' })
-            return res.redirect('/issuebook/' + userdata.userName + "/" + userdata.registrationNumber);
-        })
-    }
-
-})
 
 app.post('/issueBook/:userName/:registrationNumber', async(req, res) => {
     // console.log(req.body)
@@ -141,6 +111,52 @@ app.post('/issueBook/:userName/:registrationNumber', async(req, res) => {
         else
             res.json({ 'errorMessage': 'Book already issued' })
     }
+})
+
+app.post('/removeIssuedBook/:userName/:registrationNumber', async(req, res) => {
+    let userdata = {
+        userName: req.params.userName.substring(1, ),
+        registrationNumber: req.params.registrationNumber.substring(1, )
+    };
+    let { bookName, authorName, bookPrice } = req.body;
+    let findBookExistence = await bookIssuedModel.find({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber })
+
+    let tempArr = []
+
+    let flag = false;
+    if (findBookExistence.length !== 0) {
+        for (let i = 0; i < findBookExistence.length; i++) {
+            if (findBookExistence[i].nameOfIssuer === userdata.userName && findBookExistence[i].regNoOfUser === userdata.registrationNumber) {
+                tempArr.push(findBookExistence[i].bookObjInfo);
+            }
+        }
+        tempArr = JSON.parse(tempArr)
+        let resArr = []
+        for (let i = 0; i < tempArr.length; i++) {
+            if (!tempArr[i].bookname.includes(bookName) || !tempArr[i].bookauthor.includes(authorName) || !tempArr[i].bookprice.includes(bookPrice)) {
+                resArr.push(tempArr[i]);
+            }
+        }
+        bookIssuedModel.findOneAndUpdate({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber }, { $set: { bookObjInfo: JSON.stringify(resArr) } }, function(err, data) {
+            if (err) return res.json({ 'errorMessage': 'Some error occured' })
+            return res.redirect('/issuebook/' + userdata.userName + "/" + userdata.registrationNumber);
+        })
+    }
+
+})
+
+app.post('/issuebookWithDays/:userName/:registrationNumber', async(req, res) => {
+    let userdata = {
+        userName: req.params.userName.substring(1, ),
+        registrationNumber: req.params.registrationNumber.substring(1, )
+    };
+    let daysIssued = req.body.daysIssued;
+    let updateDays = await bookIssuedModel.findOneAndUpdate({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber }, { $set: { daysIssued: daysIssued } });
+    if (updateDays)
+        return res.redirect('/issuebook/' + userdata.userName + '/' + userdata.registrationNumber);
+    else
+        return res.json({ 'errorMessage': 'Some error occured' })
+
 })
 
 app.post('/bookAdded', async(req, res) => {
