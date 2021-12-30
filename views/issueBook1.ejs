@@ -8,269 +8,132 @@
     <title>Issue Book</title>
 </head>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    .container {
+    #bookIssued {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        width: 100vw;
-        height: 100vh;
+        flex-wrap: wrap;
     }
     
-    #card {
-        padding: 1rem 2rem;
+    .book-card {
+        margin: 1rem;
+        height: auto;
+        width: 20rem;
         display: flex;
         flex-direction: column;
-        z-index: 1;
-        border: 1px solid black;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-    }
-    
-    #card div:last-child {
-        align-self: center;
-    }
-    
-    #card div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        /* border: 1px solid black; */
-        margin: 0.3rem;
-    }
-    
-    #card div label {
-        width: 40%;
-    }
-    
-    #card div input {
-        border: none;
-        border-bottom: 1px solid white;
-        padding: 0.5rem 0.8rem;
-        /* width: 18rem; */
-        width: 60%;
-        margin: 0.4rem 0;
-        background: transparent;
-        transition: 0.2s ease-in;
-        color: white;
-    }
-    
-    #card input:hover {
-        transform: skewX(-5deg);
-        transform: scale(1.03, 1.03);
-    }
-    
-    #card div button {
-        padding: 0.6rem 1.6rem;
-        background: transparent;
-        color: white;
-        word-spacing: 4px;
-        border: 1px solid white;
-        outline: none;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-    }
-    
-    #card div button:hover {
-        color: black;
-        background-color: white;
         border: 1px solid black;
     }
     
-    #issueBookDetails {
-        color: white;
-        background: linear-gradient(to right, rgb(10, 10, 10), rgb(20, 20, 20), rgb(30, 30, 30), rgb(50, 50, 50));
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        border-radius: 0.7rem;
-        z-index: 2;
-        /* border: 1px solid black; */
-        box-shadow: 8px 12px 20px rgb(54, 54, 54);
-        padding: 2rem;
-    }
-    
-    #issueBookDetails div {
+    .book-card div {
+        font-size: 14px;
+        margin: 0.5rem 0.8rem;
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        padding: 0.3rem;
-    }
-    
-    #issueBookDetails div:first-child {
-        justify-content: flex-end;
-    }
-    
-    #issueBookDetails div p {
-        margin: 0 0.4rem;
-    }
-    
-    #closeBtn {
-        text-align: right;
-    }
-    
-    #closeBtn {
-        color: red;
-        cursor: pointer;
-    }
-    
-    #closeBtn:active {
-        color: rgba(red, red, red, 0.8);
-    }
-    
-    #backgroundImage {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
     }
 </style>
 
 <body>
-    <div class="container">
-        <img src="/images/cristina-gottardi-Bj7Pt0ZMBOk-unsplash.jpg" alt="" id="backgroundImage">
-        <form id="card">
-            <div>
-                <label for="bookList">Search Book</label>
-                <input type="text" list="booksList" placeholder="Search For Available Books..." id="bookList" required>
-                <datalist id="booksList">
-            <% data.forEach(ele=>{ %>
-                <option value="<%= ele.bookName -%>" >
-            <% }) %>
-        </datalist>
-            </div>
-            <div>
-                <label for="userName">Your Name</label>
-                <input type="text" id="userName" placeholder="Enter User Name" value="<%= userdata.userName -%>" required>
-            </div>
-            <div>
-                <label for="regNo">Your Regsitration Number</label>
-                <input type="text" id="regNo" placeholder="Enter College/University Reg. No." value="<%= (userdata.registrationNumber) -%>" checked required>
-            </div>
-            <div>
-                <label for="issueDate">Enter Issue Date</label>
-                <input type="date" id="issueDate" placeholder="Enter Issue date" checked required>
-            </div>
-            <div>
-                <label for="bookId">Enter Book Id</label>
-                <input type="text" id="bookId" placeholder="Enter book id" required>
-            </div>
-            <div>
-                <label for="bookPrice">Enter Book Price</label>
-                <input type="number" id="bookPrice" placeholder="Enter book price" required>
-            </div>
-            <div>
-                <label for="numberOfdayIssue">How many Days You want to issue ?</label>
-                <select name="" id="numberOfDaysIssue" required>
-                <option class="daysIssued" value="None">--Select Option--</option>
-                <option class="daysIssued" value="7">1 week (Free)</option>
-                <option class="daysIssued" value="14">2 weeks (Free)</option>
-                <option class="daysIssued" value="30">1 month (Free)</option>
-                <option class="daysIssued" value="45">1.5 months (20% of book price)</option>
-                <option class="daysIssued" value="60">2 months (25% of book price)</option>
-                <option class="daysIssued" value="90">3 months (40% of book price</option>
-                <option class="daysIssued" value="180">6 months (70% of book price)</option>
-            </select>
-            </div>
-            <div>
-                <button id="btn" type="submit">Issue Book</button>
-            </div>
-        </form>
-        <div id="issueBookDetails">
-            <div id="closeBtn">X</div>
-            <div id="bookName1"></div>
-            <div id="username"></div>
-            <div id="daysissued"></div>
-            <div id="pricetobepaid"></div>
-            <div id="regno"></div>
-            <div id="issueddate"></div>
+    <div class="tableContainer">
+        <table>
+            <thead>
+                <th>Sl. no.</th>
+                <th>Book Name</th>
+                <th>Author Name</th>
+                <th>Book Price</th>
+                <th>Issued or not</th>
+            </thead>
+            <tbody>
+
+                <% data.forEach((ele,index)=>{ %>
+                    <form method="post" action="/issueBook/:<%= userdata.userName -%>/:<%= userdata.registrationNumber-%>">
+                        <tr class="tableRow" id="<%= index -%>">
+                            <td class="row-data">1</td>
+                            <td class="row-data" id="<%= ele.bookId -%>">
+                                <input type="text" name='bookNameIssue' value="<%= ele.bookName -%>">
+                            </td>
+                            <td class="row-data">
+                                <input type="text" name='bookAuthorIssue' value="<%= ele.authorName -%>">
+                            </td>
+                            <td class="row-data">
+                                <input type='text' name='bookPriceIssue' value="<%= ele.bookPrice -%>">
+                            </td>
+                            <td class="row-data">
+                                <button class="get-issuedInfo" type="submit">Issue Book</button>
+                            </td>
+                        </tr>
+                    </form>
+                    <% }) %>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="bookIssuerInfo">
+        <div class="issuerInfo">
+            <h4>
+                <%= userdata.userName -%>
+            </h4>
+            <h4>
+                <%= userdata.registrationNumber -%>
+            </h4>
+        </div>
+        <div id="bookIssued">
+            <%issuerInfo && issuerInfo.forEach(ele=>{ %>
+                <form action="/removeIssuedBook/:<%= userdata.userName -%>/:<%= userdata.registrationNumber-%>" method="post">
+                    <div class='book-card'>
+                        <div>Book Name - <input type='text' name='bookName' value='<%= ele.bookname -%>' /></div>
+                        <div>Author Name - <input type='text' name='authorName' value='<%= ele.bookauthor -%>' /></div>
+                        <div>Book Price - <input type='text' name='bookPrice' value='<%= ele.bookprice -%>' /></div>
+                        <div><button type="submit">Remove Book</button></div>
+                    </div>
+                </form>
+                <% }) %>
+        </div>
+        <div class='no-of-days-for-issue'>
+            <form method="post" action="/issueBook/:<%= userdata.userName -%>/:<%= userdata.registrationNumber-%>">
+                <label for='numberOfdaysIssue'>How many days you want to issue</label>
+                <select name="daysIssued" id="numberOfDaysIssue" required>
+                    <option class="daysIssued" name='' value="None">--Select Option--</option>
+                    <option class="daysIssued" name='option1' value="7">1 week (Free)</option>
+                    <option class="daysIssued" name='option2' value="14">2 weeks (Free)</option>
+                    <option class="daysIssued" name='option3' value="30">1 month (Free)</option>
+                    <option class="daysIssued" name='option4' value="45">1.5 months (20% of book price)</option>
+                    <option class="daysIssued" name='option5' value="60">2 months (25% of book price)</option>
+                    <option class="daysIssued" name='option6' value="90">3 months (40% of book price</option>
+                    <option class="daysIssued" name='option7' value="180">6 months (70% of book price)</option>
+                </select>
+            </form>
         </div>
     </div>
 </body>
 <script>
-    document.getElementById('closeBtn').addEventListener('click', (e) => {
-        document.getElementById('issueBookDetails').style.display = 'none'
-        document.getElementById('card').style.backgroundColor = 'rgba(0,0,0,0.7)'
-        document.getElementById('btn').disabled = false;
-        document.getElementById('backgroundImage').style.opacity = '1'
-        let inputTags = document.getElementsByTagName('input');
-        for (let i = 0; i < inputTags.length; i++) {
-            inputTags[i].style.backgroundColor = 'transparent'
-            inputTags[i].disabled = false;
-        }
-    })
-    let issuedBtn = document.getElementById('btn');
-    issuedBtn.addEventListener('click', (e) => {
-        e.preventDefault()
-        let issuedBook = document.getElementById('bookList').value;
-        let userName = document.getElementById('userName').value;
-        let issuedDate = document.getElementById('issueDate').value
-        let options = document.getElementsByClassName('daysIssued');
-        let numberOfdaysIssue = options[document.getElementById('numberOfDaysIssue').selectedIndex].value
-        let bookPrice = Number(document.getElementById('bookPrice').value)
-        let regestrationNumber = document.getElementById('regNo').value;
-        let bookId = document.getElementById('bookId').value;
-        if (!regNo || !issuedBook || !userName || !issuedDate || !numberOfdaysIssue || !bookPrice || !bookId)
-            alert('Please Fill All the Fields correctly')
-            //making the modal's display block and reducing opacity of card
-        else {
-            document.getElementById('backgroundImage').style.opacity = '0.7'
-            document.getElementById('issueBookDetails').style.display = 'block'
-            document.getElementById('card').style.backgroundColor = 'rgba(0,0,0,0.4)';
+    // let button = document.getElementsByClassName('get-issuedInfo');
+    // for (let i = 0; i < button.length; i++)
+    //     button[i].addEventListener('click', retriveRowInfo);
 
-            let inputTags = document.getElementsByTagName('input');
-            for (let i = 0; i < inputTags.length; i++) {
-                inputTags[i].style.backgroundColor = 'rgba(0,0,0,0.4)'
-                inputTags[i].disabled = true;
-            }
-            document.getElementById('btn').disabled = true;
-            //modals style work finished
+    // function retriveRowInfo(e) {
+    //     this.disabled = true
 
-            let modalViewBookName = document.getElementById('bookName1')
-            modalViewBookName.innerHTML = 'Book Name : ' + "<p>" + issuedBook + "</p>"
+    //     let id = e.target.parentNode.parentNode.id;
+    //     let data = document.getElementById(id).querySelectorAll('.row-data')
 
-            let modalViewUserName = document.getElementById('username');
-            modalViewUserName.innerHTML = 'Book User Name :' + '<p>' + userName + "</p>"
-
-            let modalViewIssueDate = document.getElementById('issueddate');
-            modalViewIssueDate.innerHTML = 'Issue date : ' + "<p>" + issuedDate + "</p>"
-
-            let modalViewNumberOfDaysIssued = document.getElementById('daysissued');
-            modalViewNumberOfDaysIssued.innerHTML = 'Number of Days issued : ' + "<p>" + numberOfdaysIssue + ' days</p>'
-
-            let modalViewBookPrice = bookPrice;
-
-            let modalViewRegestrationNumber = document.getElementById('regno');
-            modalViewRegestrationNumber.innerHTML = 'User Regestration Number : ' + "<p>" + regestrationNumber + "</p>";
-
-            let modalViewFreeOrpaid = document.getElementById('pricetobepaid');
-
-            console.log(modalViewBookPrice)
-            if (numberOfdaysIssue <= '30')
-                modalViewFreeOrpaid.innerHTML = 'Price to be paid (if any) : ' + "<p>" + 0 + "</p>"
-            else if (numberOfdaysIssue === '45')
-                modalViewFreeOrpaid.innerHTML = 'Price to be paid (if any) : ' + "<p>" + (modalViewBookPrice + modalViewBookPrice * 0.2).toFixed(2) + "</p>"
-            else if (numberOfdaysIssue === '60')
-                modalViewFreeOrpaid.innerHTML = 'Price to be paid (if any) : ' + "<p>" + (modalViewBookPrice + modalViewBookPrice * 0.25).toFixed(2) + "</p>"
-            else if (numberOfdaysIssue === '90')
-                modalViewFreeOrpaid.innerHTML = 'Price to be paid (if any) : ' + "<p>" + (modalViewBookPrice + modalViewBookPrice * 0.4).toFixed(2) + "</p>"
-            else if (numberOfdaysIssue === '180')
-                modalViewFreeOrpaid.innerHTML = 'Price to be paid (if any) : ' + "<p>" + (modalViewBookPrice + modalViewBookPrice * 0.7).toFixed(2) + "</p>"
-
-        }
-
-    })
+    let html = `<div class='book-card'>
+                <div>Book Name   - <input type='text' name='bookName' value='${data[1].textContent.trim()}' disabled/></div>
+                <div>Author Name - <input type='text' name='authorName' value='${data[2].textContent.trim()}' disabled/></div>
+                <div>Book Price  - <input type='text' name='bookPrice' value='${data[3].textContent.trim()}' disabled/></div>
+                <div class='no-of-days-for-issue'>
+                    <label for='numberOfdaysIssue'>How many days you want to issue</label>
+                    <select name="daysIssued" id="numberOfDaysIssue" required>
+                    <option class="daysIssued" value="None">--Select Option--</option>
+                    <option class="daysIssued" value="7">1 week (Free)</option>
+                    <option class="daysIssued" value="14">2 weeks (Free)</option>
+                    <option class="daysIssued" value="30">1 month (Free)</option>
+                    <option class="daysIssued" value="45">1.5 months (20% of book price)</option>
+                    <option class="daysIssued" value="60">2 months (25% of book price)</option>
+                    <option class="daysIssued" value="90">3 months (40% of book price</option>
+                    <option class="daysIssued" value="180">6 months (70% of book price)</option>
+                    </select>
+                </div>    
+            </div>`
 </script>
 
 </html>

@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const addBook = new Schema({
+    bookId: {
+        type: Number,
+        required: true
+    },
     authorName: {
         type: String,
         required: true
@@ -17,6 +21,10 @@ const addBook = new Schema({
     publishDate: {
         type: String,
         required: true
+    },
+    checkIssued: {
+        type: Boolean,
+        default: true
     }
 
 })
