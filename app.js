@@ -6,6 +6,8 @@ const model = require('./bookSchema.js');
 const bookIssuedModel = require('./bookIssueSchema.js');
 const mongoose = require('mongoose');
 
+const imagesArray = ['sports.jpg', 'comedy.jpg', 'romance.jpg', 'science_fiction.jpg', 'entertainment.jpg', 'horror.jpg', 'mystry.jpg']
+
 mongoose.connect('mongodb://localhost:27017/bookManagement?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false', () => console.log('MongoDB connected'));
 
 
@@ -18,6 +20,7 @@ app.use(express.static('public'))
 
 app.use('/register_or_login', require('./Register'));
 app.use('/register_or_login', require('./Login'))
+app.use('/issuedBookInfo', require('./booksIssuedInfo'))
 
 let dataToIndexFile = {};
 let bookIdTracker = 0;
@@ -39,6 +42,7 @@ app.get('/issueBook/:userName/:registrationNumber', async(req, res) => {
         userName: req.params.userName,
         registrationNumber: req.params.registrationNumber
     }
+    console.log('inside get request', userdata.userName)
     const findUserExistence = await bookIssuedModel.findOne({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber });
     if (findUserExistence) {
         model.find().then(data => {
@@ -56,11 +60,18 @@ app.get('/issueBook/:userName/:registrationNumber', async(req, res) => {
 app.post('/issueBook/:userName/:registrationNumber', async(req, res) => {
     // console.log(req.body)
     let userdata = {
-        userName: req.params.userName.substring(1, ),
-        registrationNumber: req.params.registrationNumber.substring(1, )
+        userName: req.params.userName,
+        registrationNumber: req.params.registrationNumber
     }
-    let { bookNameIssue, bookAuthorIssue, bookPriceIssue } = req.body;
-
+    console.log(req.params.userName)
+    let { bookNameIssue, bookAuthorIssue, bookGenreIssue, bookPriceIssue } = req.body;
+    let issuerImg = '';
+    for (let i = 0; i < imagesArray.length; i++)
+        if (imagesArray[i] === bookGenreIssue.toLowerCase().trim() + '.jpg') {
+            issuerImg = imagesArray[i];
+            break;
+        }
+    console.log(issuerImg, bookGenreIssue.toLowerCase().trim())
     let bookArrayList = await bookIssuedModel.find({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber })
 
     let tempArr = []
@@ -86,7 +97,7 @@ app.post('/issueBook/:userName/:registrationNumber', async(req, res) => {
         // console.log(findUserExistence);
 
         let tempBookObj = JSON.parse(findUserExistence.bookObjInfo)
-        tempBookObj.push({ bookname: bookNameIssue, bookauthor: bookAuthorIssue, bookprice: bookPriceIssue })
+        tempBookObj.push({ bookname: bookNameIssue, bookauthor: bookAuthorIssue, bookgenre: bookGenreIssue, bookprice: bookPriceIssue, imagePath: issuerImg })
             // console.log(tempBookObj);
         bookIssuedModel.findOneAndUpdate({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber }, { $set: { bookObjInfo: JSON.stringify(tempBookObj) } }, function(err, data) {
             if (err) res.json({ 'errorMessage': 'Some error occured' })
@@ -97,13 +108,14 @@ app.post('/issueBook/:userName/:registrationNumber', async(req, res) => {
         res.json({ 'errorMessage': 'book already issued' })
     } else {
         // console.log(userdata.registrationNumber)
-        let bookObj = [{ bookname: bookNameIssue, bookauthor: bookAuthorIssue, bookprice: bookPriceIssue }]
 
+        let bookObj = [{ bookname: bookNameIssue, bookauthor: bookAuthorIssue, bookgenre: bookGenreIssue, bookprice: bookPriceIssue, imagePath: issuerImg }]
+        console.log('bookObj ', bookObj)
         if (!flag)
             bookIssuedModel.create({
                 nameOfIssuer: userdata.userName,
                 regNoOfUser: userdata.registrationNumber,
-                bookObjInfo: JSON.stringify(bookObj)
+                bookObjInfo: JSON.stringify(bookObj),
             })
             .then(data => {
                 res.redirect('/issueBook/' + userdata.userName + '/' + userdata.registrationNumber)
@@ -115,14 +127,14 @@ app.post('/issueBook/:userName/:registrationNumber', async(req, res) => {
 
 app.post('/removeIssuedBook/:userName/:registrationNumber', async(req, res) => {
     let userdata = {
-        userName: req.params.userName.substring(1, ),
-        registrationNumber: req.params.registrationNumber.substring(1, )
+        userName: req.params.userName,
+        registrationNumber: req.params.registrationNumber
     };
-    let { bookName, authorName, bookPrice } = req.body;
+    let { bookName, authorName, bookGenre, bookPrice } = req.body;
     let findBookExistence = await bookIssuedModel.find({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber })
 
     let tempArr = []
-
+        // console.log(findBookExistence)
     let flag = false;
     if (findBookExistence.length !== 0) {
         for (let i = 0; i < findBookExistence.length; i++) {
@@ -133,10 +145,11 @@ app.post('/removeIssuedBook/:userName/:registrationNumber', async(req, res) => {
         tempArr = JSON.parse(tempArr)
         let resArr = []
         for (let i = 0; i < tempArr.length; i++) {
-            if (!tempArr[i].bookname.includes(bookName) || !tempArr[i].bookauthor.includes(authorName) || !tempArr[i].bookprice.includes(bookPrice)) {
+            if (!tempArr[i].bookname.includes(bookName) || !tempArr[i].bookauthor.includes(authorName) || !tempArr[i].bookprice.includes(bookPrice) || !tempArr[i].bookgenre.includes(bookGenre)) {
                 resArr.push(tempArr[i]);
             }
         }
+        console.log('resArr ', resArr)
         bookIssuedModel.findOneAndUpdate({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber }, { $set: { bookObjInfo: JSON.stringify(resArr) } }, function(err, data) {
             if (err) return res.json({ 'errorMessage': 'Some error occured' })
             return res.redirect('/issuebook/' + userdata.userName + "/" + userdata.registrationNumber);
@@ -160,12 +173,12 @@ app.post('/issuebookWithDays/:userName/:registrationNumber', async(req, res) => 
 })
 
 app.post('/bookAdded', async(req, res) => {
-    let { authorname, bookname, bookprice, issuedate } = req.body;
+    let { authorname, bookname, bookgenre, bookprice, issuedate } = req.body;
     let findUserExistence = await model.findOne({ authorName: authorname, bookName: bookname });
 
     if (!findUserExistence) {
         let idGenerator = Date.now(); //returns the milliseconds elapsed till now
-        model.create({ bookId: idGenerator, authorName: authorname, bookName: bookname, bookPrice: bookprice, publishDate: issuedate }).then((data) => {
+        model.create({ bookId: idGenerator, authorName: authorname, bookName: bookname, bookGenre: bookgenre, bookPrice: bookprice, publishDate: issuedate }).then((data) => {
             dataToIndexFile = data
             res.redirect('/');
         }).catch(err => console.log(err))

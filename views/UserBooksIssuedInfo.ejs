@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issued Books Info</title>
+</head>
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    .card {
+        padding: 1rem;
+        width: 18rem;
+        height: auto;
+        border: 1px solid black;
+        margin: 1rem;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <% data.forEach(ele=>{ %>
+            <div class="card">
+                <div>Book Name -
+                    <%= ele.bookname -%>
+                </div>
+                <div>Author Name
+                    <%= ele.bookauthor -%>
+                </div>
+                <div>Book Price -
+                    <%= ele.bookprice -%>
+                </div>
+            </div>
+            <% }) %>
+                <div class="days-issued">No of days book is issued -
+                    <%= daysIssued -%> days
+                </div>
+    </div>
+</body>
+
+</html>

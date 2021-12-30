@@ -37,6 +37,7 @@
     
     .bookname,
     .bookprice,
+    .bookGenre,
     .username,
     .issuedate {
         font-size: 16px;
@@ -53,6 +54,7 @@
     
     .bookname input,
     .bookprice input,
+    .bookGenre input,
     .username input,
     .issuedate input {
         padding: 0.5rem;
@@ -65,6 +67,7 @@
     
     .bookname:hover,
     .bookprice:hover,
+    .bookGenre:hover,
     .username:hover,
     .issuedate:hover {
         transform: scale(1.02, 1.02);
@@ -210,10 +213,19 @@
         transition: 0.3s ease-in-out;
     }
     
+    .heading button a {
+        color: white;
+        text-decoration: none;
+    }
+    
     .heading button:hover {
         color: black;
         background-color: white;
         border: 1px solid black;
+    }
+    
+    .heading button a:hover {
+        color: black;
     }
     
     @media screen and (max-width:800px) {
@@ -236,6 +248,7 @@
         }
         .bookname input,
         .bookprice input,
+        .bbokGenre input,
         .username input,
         .issuedate input {
             width: 70%;
@@ -291,7 +304,7 @@
         <div class="heading">
             <button>Home</button>
             <p>Publish Your Book Here</p>
-            <button>Login/Signup</button>
+            <button><a href="/register_or_login">Login/Signup</a></button>
         </div>
         <div class="bodyContainer">
             <form action="/bookAdded" class="entryBookForm" method="post" enctype="application/x-www-form-urlencoded">
@@ -302,6 +315,10 @@
                 <div class="bookname">
                     <label for="bookname">Enter Book Name</label>
                     <input id="bookname" name="bookname" type="text" placeholder="Enter book name" />
+                </div>
+                <div class="bookGenre">
+                    <label for="bookprice">Genre of Book</label>
+                    <input id="bookgenre" name="bookgenre" type="text" placeholder="Enter genre of book" />
                 </div>
                 <div class="bookprice">
                     <label for="bookprice">Price of Book</label>
@@ -320,6 +337,7 @@
                         <th>Sl. no.</th>
                         <th>Name of Author</th>
                         <th>Name of book</th>
+                        <th>Genre of book</th>
                         <th>Price of book</th>
                         <th>Publish date</th>
                         <th>Drop Book</th>
@@ -336,6 +354,9 @@
                                 </td>
                                 <td>
                                     <%= ele.bookName -%>
+                                </td>
+                                <td>
+                                    <%= ele.bookGenre -%>
                                 </td>
                                 <td>
                                     <%= ele.bookPrice -%>
@@ -357,7 +378,7 @@
 <script>
     let cnt = 1
     let tableData = document.getElementsByTagName('td');
-    for (let i = 0; i < tableData.length; i += 6) {
+    for (let i = 0; i < tableData.length; i += 7) {
         tableData[i].innerText = cnt;
         cnt++;
     }

@@ -18,6 +18,10 @@ const addBook = new Schema({
         type: String,
         required: true
     },
+    bookGenre: {
+        type: String,
+        required: true
+    },
     publishDate: {
         type: String,
         required: true

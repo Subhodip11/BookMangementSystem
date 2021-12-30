@@ -39,13 +39,14 @@
                 <th>Sl. no.</th>
                 <th>Book Name</th>
                 <th>Author Name</th>
+                <th>Book Genre</th>
                 <th>Book Price</th>
                 <th>Issued or not</th>
             </thead>
             <tbody>
 
                 <% data.forEach((ele,index)=>{ %>
-                    <form method="post" action="/issueBook/:<%= userdata.userName -%>/:<%= userdata.registrationNumber-%>">
+                    <form method="post" action="/issueBook/<%= userdata.userName -%>/<%= userdata.registrationNumber-%>">
                         <tr class="tableRow" id="<%= index -%>">
                             <td class="row-data">1</td>
                             <td class="row-data" id="<%= ele.bookId -%>">
@@ -53,6 +54,9 @@
                             </td>
                             <td class="row-data">
                                 <input type="text" name='bookAuthorIssue' value="<%= ele.authorName -%>">
+                            </td>
+                            <td class="row-data">
+                                <input type="text" name="bookGenreIssue" value="<%= ele.bookGenre -%>">
                             </td>
                             <td class="row-data">
                                 <input type='text' name='bookPriceIssue' value="<%= ele.bookPrice -%>">
@@ -78,10 +82,11 @@
         </div>
         <div id="bookIssued">
             <%issuerInfo && issuerInfo.forEach(ele=>{ %>
-                <form action="/removeIssuedBook/:<%= userdata.userName -%>/:<%= userdata.registrationNumber-%>" method="post">
+                <form action="/removeIssuedBook/<%= userdata.userName -%>/<%= userdata.registrationNumber-%>" method="post">
                     <div class='book-card'>
                         <div>Book Name - <input type='text' name='bookName' value='<%= ele.bookname -%>' /></div>
                         <div>Author Name - <input type='text' name='authorName' value='<%= ele.bookauthor -%>' /></div>
+                        <div>Book Genre - <input type="text" name="bookGenre" value="<%= ele.bookgenre -%>"></div>
                         <div>Book Price - <input type='text' name='bookPrice' value='<%= ele.bookprice -%>' /></div>
                         <div><button type="submit">Remove Book</button></div>
                     </div>
@@ -106,35 +111,6 @@
         </div>
     </div>
 </body>
-<script>
-    // let button = document.getElementsByClassName('get-issuedInfo');
-    // for (let i = 0; i < button.length; i++)
-    //     button[i].addEventListener('click', retriveRowInfo);
 
-    // function retriveRowInfo(e) {
-    //     this.disabled = true
-
-    //     let id = e.target.parentNode.parentNode.id;
-    //     let data = document.getElementById(id).querySelectorAll('.row-data')
-
-    let html = `<div class='book-card'>
-                <div>Book Name   - <input type='text' name='bookName' value='${data[1].textContent.trim()}' disabled/></div>
-                <div>Author Name - <input type='text' name='authorName' value='${data[2].textContent.trim()}' disabled/></div>
-                <div>Book Price  - <input type='text' name='bookPrice' value='${data[3].textContent.trim()}' disabled/></div>
-                <div class='no-of-days-for-issue'>
-                    <label for='numberOfdaysIssue'>How many days you want to issue</label>
-                    <select name="daysIssued" id="numberOfDaysIssue" required>
-                    <option class="daysIssued" value="None">--Select Option--</option>
-                    <option class="daysIssued" value="7">1 week (Free)</option>
-                    <option class="daysIssued" value="14">2 weeks (Free)</option>
-                    <option class="daysIssued" value="30">1 month (Free)</option>
-                    <option class="daysIssued" value="45">1.5 months (20% of book price)</option>
-                    <option class="daysIssued" value="60">2 months (25% of book price)</option>
-                    <option class="daysIssued" value="90">3 months (40% of book price</option>
-                    <option class="daysIssued" value="180">6 months (70% of book price)</option>
-                    </select>
-                </div>    
-            </div>`
-</script>
 
 </html>
