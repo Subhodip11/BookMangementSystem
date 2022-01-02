@@ -18,7 +18,7 @@ app.post('/registeredSuccessfully', async(req, res) => {
     else {
         userRegistrationModel.create({ userName: userName, password: password, registrationNumber: registrationNumber, email: email, mobileNumber: mobileNumber })
             .then(data => {
-                res.redirect(`/issueBook/${userName}/${registrationNumber}`)
+                res.redirect(`/issueBook/:${userName}/:${registrationNumber}`)
             }).catch(err => {
                 res.json({ 'errorMessage': 'Entered fields are not correct' })
                 console.log(err)

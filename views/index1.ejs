@@ -37,7 +37,7 @@
     
     .bookname,
     .bookprice,
-    .bookGenre,
+    .bookgenre,
     .username,
     .issuedate {
         font-size: 16px;
@@ -54,7 +54,7 @@
     
     .bookname input,
     .bookprice input,
-    .bookGenre input,
+    .bookgenre select,
     .username input,
     .issuedate input {
         padding: 0.5rem;
@@ -67,7 +67,7 @@
     
     .bookname:hover,
     .bookprice:hover,
-    .bookGenre:hover,
+    .bookgenre:hover,
     .username:hover,
     .issuedate:hover {
         transform: scale(1.02, 1.02);
@@ -248,7 +248,7 @@
         }
         .bookname input,
         .bookprice input,
-        .bbokGenre input,
+        .bbokgenre input,
         .username input,
         .issuedate input {
             width: 70%;
@@ -257,7 +257,7 @@
         }
         .bookname,
         .bookprice,
-        .username,
+        .bookgenre .username,
         .issuedate {
             font-size: 14px;
         }
@@ -316,9 +316,19 @@
                     <label for="bookname">Enter Book Name</label>
                     <input id="bookname" name="bookname" type="text" placeholder="Enter book name" />
                 </div>
-                <div class="bookGenre">
-                    <label for="bookprice">Genre of Book</label>
-                    <input id="bookgenre" name="bookgenre" type="text" placeholder="Enter genre of book" />
+                <div class="bookgenre">
+                    <label for="bookGenreList">Genre of Book</label>
+                    <select name="bookgenrelist" id="bookGenreList">
+                        <option name='O1' value="Autobiography">Autobiography</option>
+                        <option name='O2' value="Comedy">Comedy</option>
+                        <option name='O3' value="Entertainment">Entertainment</option>
+                        <option name='O4' value="Mystry">Mystry</option>
+                        <option name='O5' value="Horror">Horror
+                        </option>
+                        <option name='O6' value="Science_Fiction">Science_Fiction</option>
+                        <option name='O7' value="Sports">Sports</option>
+                        <option name='O8' value="Romance">Romance</option>
+                    </select>
                 </div>
                 <div class="bookprice">
                     <label for="bookprice">Price of Book</label>
@@ -326,7 +336,7 @@
                 </div>
                 <div class="issuedate">
                     <label for="issuedate">Book Publish Date</label>
-                    <input id="issuedate" name="issuedate" type="text" placeholder="Enter book issue date" />
+                    <input id="issuedate" name="issuedate" type="date" placeholder="Enter book issue date" />
                 </div>
                 <button type="submit" class="addBookBtn">Add book</button>
             </form>

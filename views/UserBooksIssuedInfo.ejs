@@ -22,12 +22,24 @@
         border: 1px solid black;
         margin: 1rem;
     }
+    
+    .genreImage img {
+        width: 100%;
+        height: 8rem;
+    }
 </style>
 
 <body>
+    <div class="date">
+        <%= todayDate -%>
+    </div>
     <div class="container">
+
         <% data.forEach(ele=>{ %>
             <div class="card">
+                <div class="genreImage">
+                    <img src="/images/<%= ele.bookgenre.toLowerCase().trim() -%>.jpg" alt="">
+                </div>
                 <div>Book Name -
                     <%= ele.bookname -%>
                 </div>
@@ -36,6 +48,12 @@
                 </div>
                 <div>Book Price -
                     <%= ele.bookprice -%>
+                </div>
+                <div>Book Issue Date -
+                    <%= ele.bookissuedate -%>
+                </div>
+                <div>Days Remaining to return book -
+                    <%=  ele.remainingdays -%>
                 </div>
             </div>
             <% }) %>

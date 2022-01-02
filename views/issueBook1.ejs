@@ -88,11 +88,13 @@
                         <div>Author Name - <input type='text' name='authorName' value='<%= ele.bookauthor -%>' /></div>
                         <div>Book Genre - <input type="text" name="bookGenre" value="<%= ele.bookgenre -%>"></div>
                         <div>Book Price - <input type='text' name='bookPrice' value='<%= ele.bookprice -%>' /></div>
+                        <div class="issueDate">Book Issue Date- <input type="text" value="<%= ele.bookissuedate -%>"></div>
                         <div><button type="submit">Remove Book</button></div>
                     </div>
                 </form>
                 <% }) %>
         </div>
+
         <div class='no-of-days-for-issue'>
             <form method="post" action="/issuebookWithDays/:<%= userdata.userName -%>/:<%= userdata.registrationNumber-%>">
                 <label for='numberOfdaysIssue'>How many days you want to issue</label>

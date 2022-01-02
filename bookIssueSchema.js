@@ -14,7 +14,6 @@ const bookIssue = new Schema({
         type: String,
         required: true
     },
-
     daysIssued: {
         type: Number,
         default: 3
