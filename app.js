@@ -7,7 +7,7 @@ const bookIssuedModel = require('./bookIssueSchema.js');
 const UserRegistrationModel = require('./userRegistartionSchema.js')
 const mongoose = require('mongoose');
 
-const imagesArray = ['sports.jpg', 'comedy.jpg', 'romance.jpg', 'science_fiction.jpg', 'entertainment.jpg', 'horror.jpg', 'mystry.jpg']
+const imagesArray = ['sports.jpg', 'comedy.jpg', 'romance.jpg', 'science_fiction.jpg', 'entertainment.jpg', 'horror.jpg', 'mystry.jpg', 'autobiography.jpg', 'action.jpg', 'history.jpg']
 
 mongoose.connect('mongodb://localhost:27017/bookManagement?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false', () => console.log('MongoDB connected'));
 
@@ -135,27 +135,25 @@ app.post('/issueBook/:userName/:registrationNumber', async(req, res) => {
 })
 
 app.post('/removeIssuedBook/:userName/:registrationNumber', async(req, res) => {
-    let userdata = {
-        userName: req.params.userName.substring(1, ),
-        registrationNumber: req.params.registrationNumber.substring(1, )
-    };
+
     let { bookName, authorName, bookGenre, bookPrice } = req.body;
-    let findBookExistence = await bookIssuedModel.find({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber })
+    let findUserExistence = await bookIssuedModel.find({ nameOfIssuer: userdata.userName, regNoOfUser: userdata.registrationNumber })
 
     let tempArr = []
-        // console.log(findBookExistence)
+    console.log('findUserExistence', findUserExistence)
     let flag = false;
-    if (findBookExistence.length !== 0) {
-        for (let i = 0; i < findBookExistence.length; i++) {
-            if (findBookExistence[i].nameOfIssuer === userdata.userName && findBookExistence[i].regNoOfUser === userdata.registrationNumber) {
-                tempArr.push(findBookExistence[i].bookObjInfo);
+    if (findUserExistence.length !== 0) {
+        for (let i = 0; i < findUserExistence.length; i++) {
+            if (findUserExistence[i].nameOfIssuer === userdata.userName && findUserExistence[i].regNoOfUser === userdata.registrationNumber) {
+                tempArr.push(findUserExistence[i].bookObjInfo);
             }
         }
         tempArr = JSON.parse(tempArr)
         let resArr = []
         for (let i = 0; i < tempArr.length; i++) {
-            if (!tempArr[i].bookname.includes(bookName) || !tempArr[i].bookauthor.includes(authorName) || !tempArr[i].bookprice.includes(bookPrice) || !tempArr[i].bookgenre.includes(bookGenre)) {
+            if (!tempArr[i].bookname.includes(bookName) || !tempArr[i].bookauthor.includes(authorName)) {
                 resArr.push(tempArr[i]);
+                console.log('bookName ' + bookName + ' bookAuthor ' + authorName);
             }
         }
         console.log('resArr ', resArr)
@@ -183,6 +181,8 @@ app.post('/issuebookWithDays/:userName/:registrationNumber', async(req, res) => 
 
 app.post('/bookAdded', async(req, res) => {
     let { authorname, bookname, bookgenrelist, bookprice, issuedate } = req.body;
+    if (!authorname || !bookname || !bookgenrelist || !bookprice || !issuedate)
+        return res.json('Please enter the fields correctly')
     let findUserExistence = await model.findOne({ authorName: authorname, bookName: bookname });
 
     if (!findUserExistence) {
@@ -196,7 +196,7 @@ app.post('/bookAdded', async(req, res) => {
 })
 
 app.post('/deleteBook/:id', (req, res) => {
-    model.findOneAndRemove({ id: req.params.id }).then(mssg => {
+    model.findOneAndRemove({ bookId: Number(req.params.id.substring(1, )) }).then(mssg => {
         console.log("Successfully deleted")
         res.redirect('/')
     }).catch(err => console.log(err))

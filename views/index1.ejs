@@ -15,6 +15,13 @@
         box-sizing: border-box;
     }
     
+    body {
+        background-image: url('/images/henry-be-lc7xcWebECc-unsplash.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 1000px;
+    }
+    
     .container {
         width: 100vw;
         height: fit-content;
@@ -239,7 +246,7 @@
             font-size: 16px;
         }
         .backgroundImage {
-            background-attachment: scroll;
+            background-attachment: fixed;
         }
         .entryBookForm {
             width: 90%;
@@ -262,7 +269,7 @@
             font-size: 14px;
         }
         .tableContainer {
-            width: 100%;
+            width: 80%;
             margin: 0 0.5rem;
             overflow: scroll;
             height: 100%;
@@ -300,7 +307,7 @@
 
 <body>
     <div class="container">
-        <img class="backgroundImage" src="images/henry-be-lc7xcWebECc-unsplash.jpg" alt="">
+        <!-- <img class="backgroundImage" src="images/henry-be-lc7xcWebECc-unsplash.jpg" alt=""> -->
         <div class="heading">
             <button>Home</button>
             <p>Publish Your Book Here</p>
@@ -319,6 +326,7 @@
                 <div class="bookgenre">
                     <label for="bookGenreList">Genre of Book</label>
                     <select name="bookgenrelist" id="bookGenreList">
+                        <option name='00' value='Action'>Action</option>
                         <option name='O1' value="Autobiography">Autobiography</option>
                         <option name='O2' value="Comedy">Comedy</option>
                         <option name='O3' value="Entertainment">Entertainment</option>
@@ -375,7 +383,7 @@
                                     <%= ele.publishDate -%>
                                 </td>
                                 <td>
-                                    <form action="/deleteBook/:<%= ele.id -%>" method="post" enctype="application/x-www-form-urlencoded"><button type="submit" class="deleteBtn"><i class="fas fa-trash-alt"></i></button></form>
+                                    <form action="/deleteBook/:<%= ele.bookId -%>" method="post" enctype="application/x-www-form-urlencoded"><button type="submit" class="deleteBtn"><i class="fas fa-trash-alt"></i></button></form>
                                 </td>
                             </tr>
                             <%  }) %>
