@@ -314,7 +314,7 @@
             <button><a href="/register_or_login">Login/Signup</a></button>
         </div>
         <div class="bodyContainer">
-            <form action="/bookAdded" class="entryBookForm" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/publish/bookAdded" class="entryBookForm" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="username">
                     <label for="username">Enter Author Name</label>
                     <input id="username" name="authorname" type="text" placeholder="Enter user name" />
@@ -383,7 +383,7 @@
                                     <%= ele.publishDate -%>
                                 </td>
                                 <td>
-                                    <form action="/deleteBook/:<%= ele.bookId -%>" method="post" enctype="application/x-www-form-urlencoded"><button type="submit" class="deleteBtn"><i class="fas fa-trash-alt"></i></button></form>
+                                    <form action="/publish/deleteBook/:<%= ele.bookId -%>" method="post" enctype="application/x-www-form-urlencoded"><button type="submit" class="deleteBtn"><i class="fas fa-trash-alt"></i></button></form>
                                 </td>
                             </tr>
                             <%  }) %>

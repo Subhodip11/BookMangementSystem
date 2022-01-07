@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    .navBar {
+        z-index: 100;
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        box-shadow: 5px 0 30px 18px rgb(105, 101, 101);
+        background-color: white;
+    }
+    
+    .heading {
+        font-size: 1.5rem;
+        letter-spacing: 5px;
+        font-weight: bold;
+        width: 40%;
+        padding: 0 4rem;
+    }
+    
+    .routes {
+        width: 60%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .routes ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    .routes ul li {
+        padding: 1rem 1.4rem;
+        font-size: 1.3rem;
+        color: rgb(34, 32, 32);
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+    }
+    
+    .routes ul li:hover {
+        text-decoration: underline;
+    }
+    
+    .btn {
+        border: none;
+        padding: 0.6rem 1.2rem;
+        color: white;
+        background-color: black;
+        outline: white;
+        transition: all 0.2s ease-in-out;
+        margin: 0 2rem;
+    }
+    
+    .btn:hover {
+        border: 1px solid black;
+        color: black;
+        background-color: white;
+    }
+    
+    .home {
+        background: url('../public/images/honePageImg1.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        transition: all 0.5s ease-in-out;
+    }
+    
+    .imageText {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 1rem;
+        width: 800px;
+    }
+    
+    #contentHeader {
+        border-right: 1px solid white;
+        font-size: 2rem;
+        color: white;
+        letter-spacing: 4px;
+    }
+    
+    .bodyContent {
+        font-size: 1.7rem;
+        color: rgb(175, 175, 175);
+        text-align: center;
+    }
+    
+    .faqSection {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        transition: 0.5s ease-in-out;
+    }
+    
+    .faqImg {
+        width: 50%;
+        height: 80vh;
+        background: url('../public/images/faq-banner.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    
+    .askQuestions {
+        padding: 1rem 3rem;
+        width: 70%;
+    }
+    
+    .innerQuestions:first-child {
+        /* border: 1px solid black; */
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 1rem 0;
+    }
+    
+    .innerAnswer {
+        /* border: 1px solid black; */
+        padding: 0.3rem 1rem;
+        color: gray;
+        transition: 1s ease-out;
+    }
+    
+    .infoAboutUs {
+        color: rgb(71, 71, 233);
+        padding-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+    
+    .innerQuestions {
+        display: flex;
+        justify-content: space-between;
+        transition: 1s ease-in;
+    }
+    
+    .showAnswerBtn {
+        font-size: 1.3rem;
+        color: rgb(58, 58, 236);
+    }
+    
+    .haveQuestionsToAsk {
+        background-color: #262626;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .userQuestions p {
+        font-size: 2rem;
+        padding: 1rem;
+    }
+    
+    .haveQuestionsToAsk {
+        padding: 1rem;
+    }
+    
+    .haveQuestionsToAsk input {
+        width: 30rem;
+        margin: 1rem;
+        padding: 0.8rem 1.2rem;
+        font-size: 1.1rem;
+    }
+    
+    .haveQuestionsToAsk button {
+        background-color: tomato;
+        color: white;
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 0.3rem;
+    }
+    
+    .placeQuestion {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    
+    .placeQuestion label {
+        font-size: 1.3rem;
+        padding: 0 1rem;
+    }
+    
+    .testimonials {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .userResponse {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        padding: 1rem;
+    }
+    
+    .userResponse div:last-child {
+        font-size: 1rem;
+        padding: 1rem 0.6rem;
+    }
+    
+    .reviews {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 2rem;
+        transition: 0.5s ease-in-out;
+    }
+    
+    .card {
+        width: 15rem;
+        height: 12rem;
+        display: flex;
+        flex-direction: column;
+        transform-style: preserve-3d;
+        position: relative;
+        transition: all 1s ease-in-out;
+    }
+    
+    .heading2 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 1rem;
+    }
+    
+    .cardBody-TheFront {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        /* border: 1px solid black; */
+        background-color: rgb(245, 245, 245);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .cardBody-TheFront img {
+        height: 8rem;
+    }
+    
+    .cardBody-TheFront p {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    
+    .cardBody-TheBack {
+        /* border: 1px solid black; */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(245, 255, 255);
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+        padding: 0.5rem 0.4rem;
+    }
+    
+    .card:hover {
+        transform: rotateY(180deg);
+    }
+    
+    .authorReviews {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        /* border: 1px solid black; */
+        width: 80%;
+        margin: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .userReviews {
+        width: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #userCard,
+    #userCardDummy {
+        width: 90%;
+        height: 90%;
+        border: 1px solid black;
+        border-radius: 0.5rem;
+        letter-spacing: 3px;
+        word-spacing: 4px;
+        padding: 1rem 1.3rem;
+        box-shadow: 0 0 20px 10px gray;
+        position: relative;
+        transition: 1s ease-in-out;
+    }
+    
+    #userCard {
+        animation: ripple 0.5s;
+    }
+    
+    @keyframes ripple {
+        from {
+            transform: scale(0);
+            opacity: 0.2;
+        }
+        to {
+            transform: scale(5);
+            opacity: 0;
+        }
+    }
+    
+    .iconContainer {
+        display: flex;
+        align-items: center;
+    }
+    
+    .iconContainer img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+    }
+    
+    .userReviewsContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .navigationBtn,
+    .navigationBtn-genre {
+        font-size: 2rem;
+        background: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    
+    .contactUs {
+        background-color: #262626;
+        color: white;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .address {
+        width: 50%;
+        color: gray;
+    }
+    
+    .address p:first-child {
+        font-size: 1.5rem;
+        color: #ffffff;
+    }
+    
+    .contactUsForm {
+        display: flex;
+        flex-direction: column;
+        margin: 2rem 0;
+    }
+    
+    .contactUsForm input {
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+        width: 18rem;
+    }
+    
+    .contactUsForm button {
+        padding: 0.6rem 1.2rem;
+        align-self: flex-start;
+        justify-self: center;
+        outline: none;
+        border: none;
+        border-radius: 0.3rem;
+        color: white;
+        background: linear-gradient(to right, tomato, rgb(255, 115, 90), rgb(255, 137, 116));
+    }
+    
+    .contactUsForm p {
+        font-size: 1.5rem;
+    }
+    
+    .contactUsParent {
+        display: flex;
+        flex-direction: column;
+        background-color: #262626;
+    }
+    
+    .copyright {
+        align-self: center;
+        color: white;
+        margin-bottom: 1rem;
+    }
+    
+    .books {
+        height: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(247, 255, 255);
+    }
+    
+    .genres {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        /* width: 50%; */
+        flex-wrap: wrap;
+        /* border: 1px solid black; */
+    }
+    
+    .genreCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 15rem;
+        background-color: antiquewhite;
+        padding: 1rem;
+        animation: fade 1s;
+        /* border: 1px solid black; */
+    }
+    
+    @keyframes fade {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+    .genreCard img {
+        border: none;
+        height: 10rem;
+        width: 90%;
+    }
+    
+    .genreCard p {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    
+    .routesToOtherPages {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .routesToOtherPages button {
+        margin: 1rem;
+        padding: 0.6rem 1.2rem;
+        align-self: flex-start;
+        justify-self: center;
+        outline: none;
+        border: none;
+        border-radius: 0.3rem;
+        color: white;
+        background: linear-gradient(to right, tomato, rgb(255, 115, 90), rgb(255, 137, 116));
+    }
+    
+    .routesToOtherPages div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .genresCardContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /* border: 1px solid black; */
+        padding: 2rem;
+        width: 60%;
+    }
+    
+    .cardContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        /* border: 1px solid black; */
+    }
+    
+    .navigationBtn-genre {
+        margin: 0 0.5rem;
+    }
+    
+    #bookContainer {
+        background-color: rgb(247, 255, 255);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 0.5s ease-in-out;
+    }
+    
+    #cardContainerHeading2 {
+        color: green
+    }
+</style>
+
+<body>
+    <nav class="navBar">
+        <div class="heading">
+            BMS
+        </div>
+        <div class="routes">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#bookContainer">Books</a></li>
+                <li style="font-size: 1.1rem;"><a href="#reviews">Review Section</a></li>
+                <li><a href="#faqSection">FAQ Section</a></li>
+            </ul>
+            <button class="btn">Register/Login</button>
+        </div>
+    </nav>
+    <section id="home" class="home">
+        <div class="imageText">
+            <div class="bodyContentHeader">
+                <span id="contentHeader"></span>
+            </div>
+            <div class="bodyContent">Borrow your books online</div>
+            <div class="bodyContent">Or publish your dream book</div>
+            <div class="bodyContent">With minimal charges</div>
+        </div>
+    </section>
+    <section id="bookContainer">
+        <div class="heading2" id="cardContainerHeading2">
+            Book Section: Publish/Issue
+        </div>
+        <div class="books">
+            <div class="cardContainer">
+                <div class="heading2" style="font-size: 1.5rem;">
+                    Genres Show
+                </div>
+                <div class="genresCardContainer">
+                    <button class="navigationBtn-genre">&#8592;</button>
+                    <div class="genres">
+                        <div class="genreCard">
+                            <img src="../public/images/autobiography.jpg" alt="">
+                            <p>Autobiography</p>
+                        </div>
+                    </div>
+                    <button class="navigationBtn-genre">&#8594;</button>
+                </div>
+            </div>
+            <div class="routesToOtherPages">
+                <form action="/publish">
+                    <button type="submit" class>Click Here To Publish Your Books</button>
+                </form>
+                <form action="/admin">
+                    <button type="submit">Admin Login</button>
+                </form>
+                <div class="infoForUsers">
+                    <p>To issue a book form published books database you need to login. If you are a new user then signup</p>
+
+                    <form action="/register_or_login">
+                        <button type='submit' class="btn">Register/Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="faqSection" class="faqSection">
+
+        <div class="askQuestions">
+            <div class="infoAboutUs">
+                Frequently Asked Questions
+            </div>
+            <div class="questions">
+                <div class="innerQuestions">
+                    <p>1. Question 1 ?</p>
+                    <p class="showAnswerBtn">></p>
+                </div>
+                <div class="innerAnswer">Answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor libero tempora et iusto, ipsum alias quam voluptatibus nisi consectetur perferendis?</div>
+            </div>
+            <div class="questions">
+                <div class="innerQuestions">
+                    <p>2. Question 2 ?</p>
+                    <p class="showAnswerBtn">></p>
+                </div>
+                <div class="innerAnswer"></div>
+            </div>
+            <div class="questions">
+                <div class="innerQuestions">
+                    <p>3. Question 3 ?</p>
+                    <p class="showAnswerBtn">></p>
+                </div>
+                <div class="innerAnswer"></div>
+            </div>
+            <div class="questions">
+                <div class="innerQuestions">
+                    <p>4. Question 4 ?</p>
+                    <p class="showAnswerBtn">></p>
+                </div>
+                <div class="innerAnswer"></div>
+            </div>
+        </div>
+        <div class="faqImg"></div>
+    </section>
+    <section class="haveQuestionsToAsk">
+        <div class="userQuestions">
+            <p>Have Questions To Ask ?</p>
+        </div>
+        <div class="placeQuestion">
+            <label for="input">Drop Your Questions Here</label>
+            <input type="text" id="input" placeholder="Place Your Questions Here">
+        </div>
+        <button type="submit">Submit</button>
+    </section>
+    <section id="reviews" class="reviews">
+        <div class="heading2">
+            <span>Author's Review</span>
+            <hr>
+        </div>
+        <div class="authorReviews">
+            <div class="card">
+                <div class="cardBody-TheFront">
+                    <img src="../public/images/personCardImages/profilePic1.png" alt="">
+                    <p>Smith Rowe</p>
+                </div>
+                <div class="cardBody-TheBack">
+                    <p>
+                        Review:-<br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque odit earum nam id ullam libero asperiores iure enim aliquam quae?
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardBody-TheFront">
+                    <img src="../public/images/personCardImages/profilePic2.png" alt="">
+                    <p>Cornellius</p>
+                </div>
+                <div class="cardBody-TheBack">
+                    <p>
+                        Review:-<br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque odit earum nam id ullam libero asperiores iure enim aliquam quae?
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardBody-TheFront">
+                    <img src="../public/images/personCardImages/profilePic2.png" alt="">
+                    <p>Ema Watson</p>
+                </div>
+                <div class="cardBody-TheBack">
+                    <p>
+                        Review:-<br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque odit earum nam id ullam libero asperiores iure enim aliquam quae?
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="heading2">
+            <span>User's Review</span>
+            <hr>
+        </div>
+        <div class="userReviewsContainer">
+            <button class="navigationBtn">&#8592;</button>
+            <div class="userReviews">
+                <div id="userCardDummy">
+                    <div class="iconContainer">
+                        <img src="../public/images/personCardImages/avatarIcon1.png" alt="">
+                        <p>User 1</p>
+                    </div>
+                    <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia officia repellendus, laborum ea, iusto consectetur ipsum accusantium tempora sunt saepe harum earum quidem aspernatur repellat nisi est dolor dignissimos deleniti cum unde. Sunt, vitae. Quisquam, fugiat deserunt. Commodi, sed velit!</q>
+                </div>
+            </div>
+            <button class="navigationBtn">&#8594;</button>
+        </div>
+    </section>
+
+
+    <section class="contactUsParent">
+        <div class="contactUs">
+            <div class="address">
+                <p>Follow us on</p>
+                <p>Instagram :- @bms_india</p>
+                <p>Facebook :- bms_india</p>
+                <p>Contact Number:- +91 98769087654, +91 6546786887</p>
+            </div>
+            <form class="contactUsForm" action="#">
+                <p>Contact Us</p>
+                <input type="text" placeholder="Enter your name">
+                <input type="email" placeholder='Enter your email id'>
+                <button type="submit">Submit Details</button>
+            </form>
+        </div>
+        <div class="copyright">
+            @CopyRight by Subhodip &copy; 2022.All Rights Reserved
+        </div>
+    </section>
+</body>
+<script>
+    let content = ['W', 'e', 'l', 'c', 'o', 'm', 'e', ' To', ' Book', ' Management', ' System'];
+    let i = 0;
+    setInterval(() => {
+        let bodyContent = document.getElementById('contentHeader')
+        if (i === content.length) {
+            bodyContent.innerText = ''
+            i = 0
+        }
+        bodyContent.innerText += content[i++]
+    }, 500);
+    console.log(document.getElementsByClassName('questions')[0].children)
+    let cntArray = [1, 0, 0, 0];
+    let questionContainer = document.getElementsByClassName('questions');
+    let addAnswersToQuestions = document.getElementsByClassName('innerQuestions');
+    for (let i = 0; i < addAnswersToQuestions.length; i++)
+        addAnswersToQuestions[i].addEventListener('click', (e) => {
+            questionContainer[i].children[1].innerText = `Answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor libero tempora et iusto, ipsum alias quam voluptatibus nisi consectetur perferendis?`
+            let pos = i;
+            for (let j = 0; j < questionContainer.length; j++) {
+                if (pos !== j) {
+                    questionContainer[j].children[1].innerText = ''
+                }
+            }
+        })
+    let userCard1 = `<div id="userCard">
+                <div class="iconContainer">
+                    <img src="../public/images/personCardImages/avatarIcon1.png" alt="">
+                    <p>User 1</p>
+                </div>
+                <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia officia repellendus, laborum ea, iusto consectetur ipsum accusantium tempora sunt saepe harum earum quidem aspernatur repellat nisi est dolor dignissimos deleniti cum unde. Sunt, vitae. Quisquam, fugiat deserunt. Commodi, sed velit!</q>
+            </div>`
+    let userCard2 = `<div id="userCard">
+                <div class="iconContainer">
+                    <img src="../public/images/personCardImages/avatarIcon2.png" alt="">
+                    <p>User 2</p>
+                </div>
+                <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia officia repellendus, laborum ea, iusto consectetur ipsum accusantium tempora sunt saepe harum earum quidem aspernatur repellat nisi est dolor dignissimos deleniti cum unde. Sunt, vitae. Quisquam, fugiat deserunt. Commodi, sed velit!</q>
+            </div>`
+    let userCard3 = `<div id="userCard">
+                <div class="iconContainer">
+                    <img src="../public/images/personCardImages/avatarIcon2.png" alt="">
+                    <p>User 3</p>
+                </div>
+                <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia officia repellendus, laborum ea, iusto consectetur ipsum accusantium tempora sunt saepe harum earum quidem aspernatur repellat nisi est dolor dignissimos deleniti cum unde. Sunt, vitae. Quisquam, fugiat deserunt. Commodi, sed velit!</q>
+            </div>`
+    let userCard4 = `<div id="userCard">
+                <div class="iconContainer">
+                    <img src="../public/images/personCardImages/avatarIcon2.png" alt="">
+                    <p>User 4</p>
+                </div>
+                <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia officia repellendus, laborum ea, iusto consectetur ipsum accusantium tempora sunt saepe harum earum quidem aspernatur repellat nisi est dolor dignissimos deleniti cum unde. Sunt, vitae. Quisquam, fugiat deserunt. Commodi, sed velit!</q>
+            </div>`
+    let userCard5 = `<div id="userCard">
+                <div class="iconContainer">
+                    <img src="../public/images/personCardImages/avatarIcon2.png" alt="">
+                    <p>User 5</p>
+                </div>
+                <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia officia repellendus, laborum ea, iusto consectetur ipsum accusantium tempora sunt saepe harum earum quidem aspernatur repellat nisi est dolor dignissimos deleniti cum unde. Sunt, vitae. Quisquam, fugiat deserunt. Commodi, sed velit!</q>
+            </div>`
+    let userCardArray = [userCard1, userCard2, userCard3, userCard4, userCard5];
+    let index = 1,
+        setIntervalIndex = 0;
+
+    //right navigation
+    document.getElementsByClassName('navigationBtn')[1].addEventListener('click', () => {
+            index++;
+            if (index === userCardArray.length)
+                index = 0
+
+            setIntervalIndex = index;
+            document.getElementsByClassName('userReviews')[0].innerHTML = userCardArray[index]
+
+        })
+        //left navigation
+    document.getElementsByClassName('navigationBtn')[0].addEventListener('click', () => {
+        index--;
+        if (index === -1)
+            index = userCardArray.length - 1
+
+        setIntervalIndex = index;
+        document.getElementsByClassName('userReviews')[0].innerHTML = userCardArray[index]
+    })
+
+
+    setInterval(() => {
+        if (index === userCardArray.length)
+            index = 0
+
+        document.getElementsByClassName('userReviews')[0].innerHTML = userCardArray[setIntervalIndex++];
+
+    }, 10000);
+
+
+    //book Genre 
+    let genresArray = ['Autobiography', 'Action', 'Comedy', 'Entertainment', 'History', 'Horror', 'Mystry', 'Romance', 'Science Fiction', 'Sports']
+
+    let index_genre = 0
+    document.getElementsByClassName('navigationBtn-genre')[0].addEventListener('click', () => {
+        index_genre--;
+        if (index_genre === -1)
+            index_genre = genresArray.length - 1
+        console.log('left navigation ', index_genre)
+        if (genresArray[index_genre] === 'Science Fiction')
+            document.getElementsByClassName('genres')[0].innerHTML = `<div class="genreCard">
+                <img src="../public/images/science_fiction.jpg" alt="">
+                <p>${genresArray[index_genre]}</p>
+            </div>`
+        else
+            document.getElementsByClassName('genres')[0].innerHTML = `<div class="genreCard">
+                <img src="../public/images/${genresArray[index_genre].toString().toLocaleLowerCase()}.jpg" alt="">
+                <p>${genresArray[index_genre]}</p>
+            </div>`
+
+    })
+    document.getElementsByClassName('navigationBtn-genre')[1].addEventListener('click', () => {
+        index_genre++;
+        if (index_genre === genresArray.length)
+            index_genre = 0
+        console.log('right navigation ', index_genre)
+        if (genresArray[index_genre] === 'Science Fiction')
+            document.getElementsByClassName('genres')[0].innerHTML = `<div class="genreCard">
+                <img src="../public/images/science_fiction.jpg" alt="">
+                <p>${genresArray[index_genre]}</p>
+            </div>`
+        else
+            document.getElementsByClassName('genres')[0].innerHTML = `<div class="genreCard">
+                <img src="../public/images/${genresArray[index_genre].toString().toLocaleLowerCase()}.jpg" alt="">
+                <p>${genresArray[index_genre]}</p>
+            </div>`
+
+    })
+</script>
+
+</html>

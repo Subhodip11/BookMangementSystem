@@ -29,7 +29,7 @@ app.use('/issuedBookInfo', require('./booksIssuedInfo'))
 let dataToIndexFile = {};
 let bookIdTracker = 0;
 
-app.get('/', (req, res) => {
+app.get('/publish', (req, res) => {
     model.find().then(data => {
         console.log(data)
         if (data.length === 0)
@@ -179,7 +179,7 @@ app.post('/issuebookWithDays/:userName/:registrationNumber', async(req, res) => 
 
 })
 
-app.post('/bookAdded', async(req, res) => {
+app.post('/publish/bookAdded', async(req, res) => {
     let { authorname, bookname, bookgenrelist, bookprice, issuedate } = req.body;
     if (!authorname || !bookname || !bookgenrelist || !bookprice || !issuedate)
         return res.json('Please enter the fields correctly')
@@ -195,11 +195,11 @@ app.post('/bookAdded', async(req, res) => {
         return res.json({ 'errorMessage': 'Book and user already Exist' })
 })
 
-app.post('/deleteBook/:id', (req, res) => {
+app.post('/publish/deleteBook/:id', (req, res) => {
     model.findOneAndRemove({ bookId: Number(req.params.id.substring(1, )) }).then(mssg => {
         console.log("Successfully deleted")
         res.redirect('/')
     }).catch(err => console.log(err))
 })
 
-app.listen(3001, () => console.log('Port is active At 3001'))
+app.listen(3002, () => console.log('Port is active At 3001'))
