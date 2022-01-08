@@ -8,6 +8,12 @@
     <title>Issue Book</title>
 </head>
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
     .tableContainer table {
         /* border: 1px solid black; */
         margin: 0 auto;
@@ -194,10 +200,62 @@
         color: #089879;
         background-color: #ffffff;
     }
+    
+    .navBar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 1rem;
+        margin: 1rem 0;
+        margin-top: 0;
+    }
+    
+    .navBar .heading {
+        font-size: 1.4rem;
+        font-family: monospace;
+        letter-spacing: 4px;
+        word-spacing: 5px;
+        color: #ffffff;
+        width: 50%;
+    }
+    
+    .navBar ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: flex-end;
+        width: 50%;
+    }
+    
+    .navBar ul li a {
+        text-decoration: none;
+        color: white;
+        background-color: #1dd8b3;
+        padding: 0.5rem 1rem;
+        margin: 0 0.4rem;
+        transition: 0.2s ease-out;
+    }
+    
+    .navBar ul li a:hover {
+        color: #1dd8b3;
+        background-color: white;
+        border: 1px solid black;
+    }
 </style>
 
 <body>
+    <nav class="navBar">
+        <div class="heading">
+            Issue Books
+        </div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/">LogOut</a></li>
+            <li>
+                <a href="/issuedBookInfo/<%= userdata.userName -%>/<%= userdata.registrationNumber -%>">User DashBoard</a></li>
+        </ul>
 
+    </nav>
 
     <div class="tableContainer">
         <table>
@@ -250,7 +308,7 @@
         </div>
         <div id="bookIssued">
             <%issuerInfo && issuerInfo.forEach(ele=>{ %>
-                <form action="/removeIssuedBook/:<%= userdata.userName -%>/:<%= userdata.registrationNumber-%>" method="post">
+                <form action="/removeIssuedBook/<%= userdata.userName -%>/<%= userdata.registrationNumber-%>" method="post">
                     <div class='book-card'>
                         <div>Book Name - <input type='text' name='bookName' value='<%= ele.bookname -%>' readonly/></div>
                         <div>Author Name - <input type='text' name='authorName' value='<%= ele.bookauthor -%>' readonly/></div>
@@ -264,7 +322,7 @@
         </div>
 
         <div class='no-of-days-for-issue'>
-            <form method="post" action="/issuebookWithDays/:<%= userdata.userName -%>/:<%= userdata.registrationNumber-%>">
+            <form method="post" action="/issuebookWithDays/<%= userdata.userName -%>/<%= userdata.registrationNumber-%>">
                 <label for='numberOfdaysIssue'>How many days you want to issue</label>
                 <select name="daysIssued" id="numberOfDaysIssue" required>
                     <option class="daysIssued" name='' value="None">--Select Option--</option>

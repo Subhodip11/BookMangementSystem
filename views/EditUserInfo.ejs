@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Info</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .navBar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        height: 100vh;
+        width: 20%;
+        background-color: rgba(0, 0, 0, 0.9);
+        position: relative;
+    }
+    
+    .btn {
+        text-align: start;
+        outline: none;
+        border: none;
+        background: transparent;
+        color: rgb(220, 220, 220);
+        padding: 0.5rem 1rem;
+        margin: 0.6rem 0.2rem;
+        transition: 0.2s ease-in-out;
+    }
+    
+    .btn:hover {
+        border-left: 2px solid white;
+        color: white;
+        font-size: 102%;
+    }
+    
+    .navBrand {
+        color: black;
+        background-color: rgb(240, 240, 240);
+        padding: 1rem;
+    }
+    
+    .navBrand .img {
+        border-radius: 50%;
+        height: 4rem;
+        width: 4rem;
+    }
+    
+    .userInfo {
+        font-size: 1rem;
+    }
+    
+    .navBar h3 {
+        color: white;
+        padding: 0.5rem 0.8rem;
+    }
+    
+    .container {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+    }
+    
+    .userUpdateCard {
+        width: 100%;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 20px 15px rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+    
+    .userUpdateCardContainer {
+        width: 80%;
+    }
+    
+    .info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1.4rem 1rem;
+        /* border: 1px solid black; */
+    }
+    
+    .info label {
+        width: 30%;
+        text-align: center;
+    }
+    
+    .info input {
+        width: 70%;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid black;
+        color: rgb(83, 83, 83);
+        font-size: 1.1rem;
+        padding: 0.6rem 1.2rem;
+        flex-grow: 2;
+    }
+    
+    .parentContainer {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .submitBtn {
+        margin: 1rem 0;
+    }
+    
+    .submitBtn #submitBtn {
+        color: white;
+        background-color: tomato;
+        border: 1px solid white;
+        transition: 0.2 ease-in;
+        outline: none;
+        padding: 0.4rem 0.8rem;
+        font-size: 1rem;
+    }
+    
+    #submitBtn:hover {
+        color: tomato;
+        background-color: white;
+    }
+</style>
+
+<body>
+    <div class="parentContainer">
+        <div class="navBar">
+            <h3>EDIT PROFILE</h3>
+            <div class="navBrand">
+                <img class="img" src="/images/personCardImages/avatarIcon1.png" alt="">
+                <p class="userInfo">
+                    <%=username-%>
+                </p>
+                <p class="userInfo">
+                    <%=registrationNumber-%>
+                </p>
+            </div>
+            <button class='btn'>Home</button>
+            <button class="btn">Issued Books Info</button>
+            <button class="btn">Issue Book</button>
+            <button class="btn">Logout</button>
+        </div>
+        <div class="container">
+            <form class="userUpdateCardContainer" action="/editUserInfo/<%=userId-%>/<%=userIdFromBook-%>" method="post">
+                <div class="userUpdateCard">
+                    <div class="info">
+                        <label for="userName">UserName</label>
+                        <input type="text" id="username" placeholder="Enter your updated name" value="<%=username-%>" name="userName" required>
+                    </div>
+                    <div class="info">
+                        <label for="regNo">Registration Number</label>
+                        <input type="text" id="regNo" placeholder="Enter your updated registration number" value="<%=registrationNumber-%>" name="registrationNumber" required>
+                    </div>
+                    <div class="info">
+                        <label for="password">Password</label>
+                        <input type="text" name="password" id="password" placeholder="Enter your updated password" value="<%=password-%>" required>
+                    </div>
+                    <div class="info">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" placeholder="Enter your updated email" value="<%=email-%>" required>
+                    </div>
+                    <div class="info">
+                        <label for="mobileNumber">Mobile Number</label>
+                        <input type="text" name="mobileNumber" id="mobileNumber" placeholder="Enter your updated mobile number" value="<%=mobileNumber-%>" required>
+                    </div>
+                </div>
+                <div class="submitBtn">
+                    <button type="submit" id="submitBtn">Update Details</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

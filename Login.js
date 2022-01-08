@@ -10,7 +10,7 @@ app.post('/loginSuccess', async(req, res) => {
     let { userNameLogin, registrationNumberLogin, passwordLogin } = req.body;
     const findUserExistence = await userVerificationModel.findOne({ userName: userNameLogin, registrationNumber: registrationNumberLogin, password: passwordLogin });
     if (findUserExistence)
-        return res.redirect(`/issuebook/:${userNameLogin}/:${registrationNumberLogin}`)
+        return res.redirect(`/issuebook/${userNameLogin}/${registrationNumberLogin}`)
     return res.json({ 'errorMessage': 'No User Found' })
 })
 

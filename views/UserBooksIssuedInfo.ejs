@@ -71,24 +71,37 @@
         transform: rotateY(180deg);
     }
     
-    #bookName {
-        margin: 0.5rem;
+    .bookName {
+        margin: 0.5rem 0;
         font-size: 1.5rem;
         text-align: center;
         font-weight: bold;
     }
     
-    #authorName {
+    .authorName {
         font-size: 1.2rem;
         text-align: center;
         color: black;
+    }
+    
+    .bookName input,
+    .authorName input {
+        padding: 0.3rem;
+        text-align: center;
+        width: 100%;
+        flex-wrap: 2;
+        background: transparent;
+        color: white;
+        outline: none;
+        border: none;
+        font-size: 1rem;
     }
     
     .theBack div {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem;
+        padding: 0.2rem;
     }
     /* Flip Animation Ends here */
     
@@ -130,13 +143,49 @@
         background-color: rgba(0, 152, 120, 0.7);
     }
     
-    .date div {
+    .date .personalDetails {
         padding: 0.5rem;
         background-color: rgb(64, 126, 241);
         color: white;
+        width: 33.3333333%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
     
-    #homeBtn {
+    #homeBtn,
+    #issueBooks,
+    #editBtn {
+        outline: none;
+        border: none;
+        padding: 0.5rem 0.8rem;
+        color: white;
+        margin: 0 1rem;
+        background-color: black;
+        font-size: 1rem;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    #editBtn {
+        background-color: tomato;
+        color: white;
+    }
+    
+    #editBtn a {
+        text-decoration: none;
+        color: white;
+    }
+    
+    #homeBtn:hover,
+    #issueBooks:hover,
+    #editBtn a:hover,
+    #editBtn:hover {
+        background-color: white;
+        color: rgb(71, 129, 236);
+    }
+    
+    #submitBtn {
         outline: none;
         border: none;
         padding: 0.5rem 1rem;
@@ -148,27 +197,42 @@
         cursor: pointer;
     }
     
-    #homeBtn:hover {
-        background-color: white;
-        color: rgb(71, 129, 236);
+    .date p {
+        font-family: monospace;
+        letter-spacing: 3px;
+        font-weight: bold;
+        font-size: 2rem;
+        width: 33.3333333%;
+        text-align: center;
     }
     
-    .date p {
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        font-weight: light;
-        font-size: 2rem;
+    .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        /* border: 1px solid black; */
+        width: 33.3333333%;
+        background-color: transparent;
     }
 </style>
 
 <body>
     <div class="date">
-        <form action="/">
-            <button id="homeBtn">Home</button>
-        </form>
+        <div class="buttons">
+            <form action="/">
+                <button id="homeBtn">Home</button>
+            </form>
+            <form action="/issuebook/<%=userInfo.userName-%>/<%=userInfo.registrationNumber-%>">
+                <button id="issueBooks">Issue Books</button>
+            </form>
+        </div>
         <p>ISSUED BOOKS INFO</p>
-        <div>
+        <div class="personalDetails">
             Todays Date -
             <%= todayDate -%>
+                <form action="/editUserInfo/<%=userId-%>/<%=userIdFromBook-%>" method="get">
+                    <button id="editBtn" type="submit">Edit Profile</button>
+                </form>
         </div>
     </div>
     <div class="issuerInfoContainer">
@@ -177,6 +241,7 @@
             <div class="hr"></div>
             <%= userInfo.userName -%>
         </div>
+
         <div class="issuerInfo">
             <span>User Registration Number</span>
             <div class="hr"></div>
@@ -201,36 +266,46 @@
     <div class="container">
 
         <% data.forEach(ele=>{ %>
-            <div class="card">
-                <div class="theFront">
-                    <div class="genreImage">
-                        <img src="/images/<%= ele.bookgenre.toLowerCase().trim() -%>.jpg" alt="">
-                    </div>
-                    <div id="bookName">
-                        <%= ele.bookname -%>
-                    </div>
-                    <div id="authorName">
-                        <%= ele.bookauthor -%>
-                    </div>
-                </div>
-                <div class="theBack">
-                    <div>Book Price -
-                        <%= ele.bookprice -%>
-                    </div>
-                    <div>Book Issue Date -
-                        <%= ele.bookissuedate -%>
-                    </div>
-                    <div>Days Remaining to return book -
-                        <%=  ele.remainingdays -%>
-                    </div>
-                </div>
+            <form action="/issuedBookInfo/returnBook/<%= userInfo.userName -%>/<%= userInfo.registrationNumber-%>" method="post">
+                <div class="card">
 
+                    <div class="theFront">
+                        <div class="genreImage">
+                            <img src="/images/<%= ele.bookgenre.toLowerCase().trim() -%>.jpg" alt="">
+                        </div>
+                        <div class="bookName" name='bookname'>
+                            <input type="text" name="bookname" id="" value="<%= ele.bookname -%>">
+                        </div>
+                        <div class="authorName">
+                            <input type="text" name='authorname' id="" value="<%= ele.bookauthor -%>">
+                        </div>
+                    </div>
+                    <form action="/issuedBookInfo/returnBook" method="post">
+                        <div class="theBack">
+                            <div>Book Name -
+                                <%=ele.bookname-%>
+                            </div>
+                            <div>Author Name -
+                                <%=ele.bookauthor-%>
+                            </div>
+                            <div>Book Price -
+                                <%= ele.bookprice -%>
+                            </div>
+                            <div>Book Issue Date -
+                                <%= ele.bookissuedate -%>
+                            </div>
+                            <div>Days Remaining to return book -
+                                <%=  ele.remainingdays -%>
+                            </div>
+                            <button type="submit" id="submitBtn">Return Book</button>
+                        </div>
 
-            </div>
-            <% }) %>
-                <div class="days-issued">No of days book is issued -
-                    <%= daysIssued -%> days
                 </div>
+                </form>
+                <% }) %>
+                    <div class="days-issued">No of days book is issued -
+                        <%= daysIssued -%> days
+                    </div>
     </div>
 </body>
 
